@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -83,5 +84,14 @@ public class PayController
             return ResultData.fail(ReturnCodeEnum.RC500.getCode(),e.getMessage());
         }
         return ResultData.success(i);
+    }
+
+    @Value("${server.port}")
+    private String port;
+
+    @GetMapping(value = "/pay/get/info")
+    private String getInfoByConsul(@Value("${cloud.info}") String cloudInfo)
+    {
+        return "cloudInfo: "+cloudInfo+"\t"+"port: "+port;
     }
 }
