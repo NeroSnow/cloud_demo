@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  *
  * @author gengxin.wang
@@ -64,6 +66,11 @@ public class PayController
     public ResultData<Pay> getById(@PathVariable("id") Integer id)
     {
         if(id == -4) throw new RuntimeException("id不能为负数");
+        try {
+            TimeUnit.SECONDS.sleep(62);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Pay pay = payService.getById(id);
         return ResultData.success(pay);
