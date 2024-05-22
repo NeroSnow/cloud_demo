@@ -47,6 +47,14 @@ spring:
 #          enabled: true #没开分组永远不用分组的配置。精确优先、分组次之(开了分组)、默认最后
 # 演示Bulkhead.Type.THREADPOOL时spring.cloud.openfeign.circuitbreaker.group.enabled设为false新启线程和原来主线程脱离了。
 
+# feign日志以什么级别监控哪个接口
+logging:
+  level:
+    com:
+      cloud:
+        apis:
+          PayFeignApi: debug
+
 
 ## Resilience4j CircuitBreaker 按照次数：COUNT_BASED 的例子
 ##  6次访问中当执行方法的失败率达到50%时CircuitBreaker将进入开启OPEN状态(保险丝跳闸断电)拒绝所有请求。
@@ -137,12 +145,14 @@ resilience4j:
       cloud-payment-service:
         baseConfig: default
 
+# zipkin图形展现地址和采样率设置
+management:
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0 #采样率默认为0.1(0.1就是10次只能有一次被记录下来)，值越大收集越及时。
 
-# feign日志以什么级别监控哪个接口
-logging:
-  level:
-    com:
-      cloud:
-        apis:
-          PayFeignApi: debug
+
 
