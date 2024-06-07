@@ -1,5 +1,7 @@
 package com.cloud;
 
+import java.time.ZonedDateTime;
+
 /**
  * TODO
  *
@@ -8,6 +10,7 @@ package com.cloud;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        ZonedDateTime zbj = ZonedDateTime.now(); // 默认时区
+        System.out.println(zbj);
     }
 }
